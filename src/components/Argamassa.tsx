@@ -14,7 +14,7 @@ export default function Argamassa() {
   }
 
   return (
-    <section className="tab-pane fade" id="argamassa" role="tabpanel">
+    <section className="tab-pane fade show active" id="argamassa" role="tabpanel">
       <div className="card shadow-sm">
         <div className="card-body">
           <h5 className="card-title mb-3">

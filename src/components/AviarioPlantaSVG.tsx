@@ -75,7 +75,7 @@ export default function AviarioPlantaSVG() {
   const poleiroLinearM = (numAves * 0.25).toFixed(1);
 
   return (
-    <section className="tab-pane fade" id="aviario-planta" role="tabpanel">
+    <section className="tab-pane fade show active" id="aviario-planta" role="tabpanel">
       <div className="card shadow-sm">
         <div className="card-body">
           <h5 className="card-title mb-3">
@@ -91,7 +91,7 @@ export default function AviarioPlantaSVG() {
           <div className="alert alert-warning d-flex align-items-center justify-content-between mb-3 shadow-sm" role="alert">
             <div>
               <strong>☀️ Diretriz Térmica Embrapa:</strong> A linha da cumeeira deve ser obrigatoriamente alinhada no sentido{' '}
-              <span className="badge bg-dark">LESTE – OESTE</span> para minimizar a insolação interna.
+              <span className="badge bg-dark">LESTE-OESTE</span> para minimizar a insolação interna.
             </div>
             <span className="badge bg-warning text-dark border border-dark">
               Pé-direito: 2,10m | Cumeeira: 2,50m
@@ -147,10 +147,10 @@ export default function AviarioPlantaSVG() {
             </div>
           </div>
 
-          <div className="row g-3">
-            {/* Coluna do Desenho Técnico SVG */}
-            <div className="col-lg-8">
-              <div className="card shadow-sm h-100">
+          {/* SVG da Planta - Centralizado, largura total */}
+          <div className="d-flex justify-content-center mb-4">
+            <div style={{ maxWidth: '100%', width: '100%' }}>
+              <div className="card shadow-sm">
                 <div className="card-header bg-white d-flex justify-content-between align-items-center">
                   <span className="fw-bold text-secondary">
                     {template === 'PLANTA_7X4_5FASES'
@@ -160,12 +160,12 @@ export default function AviarioPlantaSVG() {
                   <small className="text-muted">Clique nos ambientes para inspecionar</small>
                 </div>
 
-                <div className="card-body d-flex justify-content-center align-items-center bg-light p-2">
+                <div className="card-body d-flex justify-content-center align-items-center bg-light p-3">
                   {template === 'PLANTA_7X4_5FASES' ? (
                     <svg
                       viewBox="0 0 920 620"
                       className="w-100 h-auto border rounded bg-white"
-                      style={{ maxHeight: '540px' }}
+                      style={{ maxHeight: 'none' }}
                     >
                       <defs>
                         <marker
@@ -201,28 +201,18 @@ export default function AviarioPlantaSVG() {
                         strokeWidth="2"
                         strokeDasharray="6,6"
                       />
-                      <text x="68" y="76" fontSize="11" fill="#6b7280">
+                      <text x="68" y="76" fontSize="16" fill="#6b7280">
                         Projeção do Beiral (0,50m)
                       </text>
 
-                      {/* Bússola de Orientação Leste-Oeste */}
-                      <g transform="translate(825, 35)">
-                        <line
-                          x1="-35"
-                          y1="0"
-                          x2="35"
-                          y2="0"
-                          stroke="#dc2626"
-                          strokeWidth="2"
-                          markerEnd="url(#arrow)"
-                          markerStart="url(#arrow)"
-                        />
-                        <text x="-48" y="4" fontSize="11" fontWeight="bold" fill="#dc2626">
-                          O
-                        </text>
-                        <text x="40" y="4" fontSize="11" fontWeight="bold" fill="#dc2626">
-                          L
-                        </text>
+                      {/* Rosa dos Ventos (Canto Superior Direito) */}
+                      <g transform="translate(825, 5)">
+                        <circle cx="25" cy="25" r="18" fill="#f8fafc" stroke="#cbd5e1" strokeWidth="1.5" />
+                        <line x1="25" y1="7" x2="25" y2="43" stroke="#cbd5e1" strokeWidth="1" strokeDasharray="2,2" />
+                        <line x1="7" y1="25" x2="43" y2="25" stroke="#dc2626" strokeWidth="2" />
+                        <polygon points="43,25 36,21 36,29" fill="#dc2626" />
+                        <text x="0" y="30" fontSize="14" fontWeight="bold" fill="#dc2626">O</text>
+                        <text x="46" y="30" fontSize="14" fontWeight="bold" fill="#dc2626">L</text>
                       </g>
 
                       {/* COMPARTIMENTOS INTERATIVOS */}
@@ -244,10 +234,10 @@ export default function AviarioPlantaSVG() {
                           stroke="#1f2937"
                           strokeWidth="4"
                         />
-                        <text x="185" y="175" textAnchor="middle" fontWeight="bold" fontSize="13" fill="#111827">
+                        <text x="185" y="175" textAnchor="middle" fontWeight="bold" fontSize="20" fill="#111827">
                           INCUBAÇÃO
                         </text>
-                        <text x="185" y="193" textAnchor="middle" fontSize="11" fill="#4b5563">
+                        <text x="185" y="193" textAnchor="middle" fontSize="13" fill="#4b5563">
                           1,5m × 1,5m (2,25 m²)
                         </text>
                       </g>
@@ -270,10 +260,10 @@ export default function AviarioPlantaSVG() {
                           stroke="#1f2937"
                           strokeWidth="4"
                         />
-                        <text x="185" y="375" textAnchor="middle" fontWeight="bold" fontSize="13" fill="#111827">
+                        <text x="185" y="375" textAnchor="middle" fontWeight="bold" fontSize="20" fill="#111827">
                           POSTURA
                         </text>
-                        <text x="185" y="393" textAnchor="middle" fontSize="11" fill="#4b5563">
+                        <text x="185" y="393" textAnchor="middle" fontSize="13" fill="#4b5563">
                           1,5m × 2,5m (3,75 m²)
                         </text>
                       </g>
@@ -296,10 +286,10 @@ export default function AviarioPlantaSVG() {
                           stroke="#1f2937"
                           strokeWidth="4"
                         />
-                        <text x="460" y="295" textAnchor="middle" fontWeight="bold" fontSize="15" fill="#111827">
+                        <text x="460" y="250" textAnchor="middle" fontWeight="bold" fontSize="22" fill="#111827">
                           TERMINAÇÃO / ENGORDA
                         </text>
-                        <text x="460" y="315" textAnchor="middle" fontSize="12" fill="#4b5563">
+                        <text x="460" y="280" textAnchor="middle" fontSize="18" fill="#4b5563">
                           4,0m × 4,0m (16,00 m²)
                         </text>
                       </g>
@@ -322,10 +312,10 @@ export default function AviarioPlantaSVG() {
                           stroke="#1f2937"
                           strokeWidth="4"
                         />
-                        <text x="735" y="175" textAnchor="middle" fontWeight="bold" fontSize="13" fill="#111827">
+                        <text x="735" y="175" textAnchor="middle" fontWeight="bold" fontSize="20" fill="#111827">
                           CRIA
                         </text>
-                        <text x="735" y="193" textAnchor="middle" fontSize="11" fill="#4b5563">
+                        <text x="735" y="193" textAnchor="middle" fontSize="13" fill="#4b5563">
                           1,5m × 1,5m (2,25 m²)
                         </text>
                       </g>
@@ -348,10 +338,10 @@ export default function AviarioPlantaSVG() {
                           stroke="#1f2937"
                           strokeWidth="4"
                         />
-                        <text x="735" y="375" textAnchor="middle" fontWeight="bold" fontSize="13" fill="#111827">
+                        <text x="735" y="375" textAnchor="middle" fontWeight="bold" fontSize="20" fill="#111827">
                           RECRIA
                         </text>
-                        <text x="735" y="393" textAnchor="middle" fontSize="11" fill="#4b5563">
+                        <text x="735" y="393" textAnchor="middle" fontSize="13" fill="#4b5563">
                           1,5m × 2,5m (3,75 m²)
                         </text>
                       </g>
@@ -366,7 +356,7 @@ export default function AviarioPlantaSVG() {
                         strokeWidth="1.5"
                         strokeDasharray="10,5"
                       />
-                      <text x="460" y="305" textAnchor="middle" fontSize="10" fill="#dc2626" fontWeight="bold">
+                      <text x="460" y="340" textAnchor="middle" fontSize="15" fill="#dc2626" fontWeight="bold" paintOrder="stroke" stroke="#ffffff" strokeWidth="4">
                         LINHA DE CUMEEIRA (LESTE-OESTE) — h = 2,50m
                       </text>
 
@@ -382,11 +372,17 @@ export default function AviarioPlantaSVG() {
                             stroke="#92400e"
                             strokeWidth="2"
                           />
-                          <text x="72" y="380" textAnchor="end" fontSize="10" fill="#92400e" fontWeight="bold">
-                            Ninhos (30×35cm)
+                          <text x="75" y="345" textAnchor="end" fontSize="13" fill="#92400e" fontWeight="bold">
+                            Ninhos
                           </text>
-                          <text x="72" y="392" textAnchor="end" fontSize="9" fill="#92400e">
-                            Coleta Externa
+                          <text x="75" y="360" textAnchor="end" fontSize="12" fill="#92400e">
+                            (30×35cm)
+                          </text>
+                          <text x="75" y="375" textAnchor="end" fontSize="12" fill="#92400e">
+                            Coleta
+                          </text>
+                          <text x="75" y="390" textAnchor="end" fontSize="12" fill="#92400e">
+                            Externa
                           </text>
 
                           <g stroke="#78350f" strokeWidth="3">
@@ -394,7 +390,7 @@ export default function AviarioPlantaSVG() {
                             <line x1="300" y1="175" x2="450" y2="175" />
                             <line x1="300" y1="200" x2="450" y2="200" />
                           </g>
-                          <text x="375" y="140" textAnchor="middle" fontSize="10" fill="#78350f">
+                          <text x="375" y="140" textAnchor="middle" fontSize="15" fill="#78350f">
                             Poleiros (5×5cm a cada 25cm)
                           </text>
                         </g>
@@ -454,25 +450,25 @@ export default function AviarioPlantaSVG() {
                         <line x1="260" y1="40" x2="660" y2="40" />
                         <line x1="660" y1="40" x2="810" y2="40" />
                       </g>
-                      <text x="185" y="32" textAnchor="middle" fontSize="12" fontWeight="bold" fill="#111827">
+                      <text x="185" y="32" textAnchor="middle" fontSize="18" fontWeight="bold" fill="#111827">
                         1,5 m
                       </text>
-                      <text x="460" y="32" textAnchor="middle" fontSize="12" fontWeight="bold" fill="#111827">
+                      <text x="460" y="32" textAnchor="middle" fontSize="18" fontWeight="bold" fill="#111827">
                         4,0 m
                       </text>
-                      <text x="735" y="32" textAnchor="middle" fontSize="12" fontWeight="bold" fill="#111827">
+                      <text x="735" y="32" textAnchor="middle" fontSize="18" fontWeight="bold" fill="#111827">
                         1,5 m
                       </text>
 
                       {/* Cotas Verticais Esquerda */}
                       <g stroke="#374151" strokeWidth="1.5" markerStart="url(#arrow)" markerEnd="url(#arrow)">
-                        <line x1="40" y1="110" x2="40" y2="260" />
-                        <line x1="40" y1="260" x2="40" y2="510" />
+                        <line x1="20" y1="110" x2="20" y2="260" />
+                        <line x1="20" y1="260" x2="20" y2="510" />
                       </g>
-                      <text x="32" y="190" textAnchor="end" fontSize="12" fontWeight="bold" fill="#111827">
+                      <text x="15" y="190" textAnchor="end" fontSize="16" fontWeight="bold" fill="#111827">
                         1,5 m
                       </text>
-                      <text x="32" y="390" textAnchor="end" fontSize="12" fontWeight="bold" fill="#111827">
+                      <text x="15" y="390" textAnchor="end" fontSize="16" fontWeight="bold" fill="#111827">
                         2,5 m
                       </text>
 
@@ -487,7 +483,7 @@ export default function AviarioPlantaSVG() {
                         markerStart="url(#arrow)"
                         markerEnd="url(#arrow)"
                       />
-                      <text x="460" y="605" textAnchor="middle" fontSize="13" fontWeight="bold" fill="#111827">
+                      <text x="460" y="605" textAnchor="middle" fontSize="20" fontWeight="bold" fill="#111827">
                         Comprimento Total: 7,0 m (Área Total: 28,0 m²)
                       </text>
                     </svg>
@@ -512,7 +508,7 @@ export default function AviarioPlantaSVG() {
                       </defs>
 
                       {/* LADO ESQUERDO: PLANTA BAIXA 3,0m x 3,0m */}
-                      <text x="230" y="40" textAnchor="middle" fontWeight="bold" fontSize="15" fill="#111827">
+                      <text x="230" y="40" textAnchor="middle" fontWeight="bold" fontSize="22" fill="#111827">
                         1. Planta Baixa (3,0m × 3,0m = 9,0 m²)
                       </text>
 
@@ -549,7 +545,7 @@ export default function AviarioPlantaSVG() {
                         strokeWidth="1.5"
                         strokeDasharray="8,4"
                       />
-                      <text x="230" y="232" textAnchor="middle" fontSize="10" fontWeight="bold" fill="#dc2626">
+                      <text x="230" y="220" textAnchor="middle" fontSize="15" fontWeight="bold" fill="#dc2626" paintOrder="stroke" stroke="#ffffff" strokeWidth="4">
                         CUMEEIRA LESTE-OESTE
                       </text>
 
@@ -565,10 +561,10 @@ export default function AviarioPlantaSVG() {
                             stroke="#92400e"
                             strokeWidth="2"
                           />
-                          <text x="68" y="230" textAnchor="end" fontSize="10" fontWeight="bold" fill="#92400e">
+                          <text x="68" y="230" textAnchor="end" fontSize="15" fontWeight="bold" fill="#92400e">
                             Ninhos Externos
                           </text>
-                          <text x="68" y="242" textAnchor="end" fontSize="9" fill="#92400e">
+                          <text x="68" y="248" textAnchor="end" fontSize="14" fill="#92400e">
                             (30×35cm)
                           </text>
 
@@ -578,7 +574,7 @@ export default function AviarioPlantaSVG() {
                             <line x1="140" y1="170" x2="320" y2="170" />
                             <line x1="140" y1="195" x2="320" y2="195" />
                           </g>
-                          <text x="230" y="132" textAnchor="middle" fontSize="10" fill="#78350f">
+                          <text x="230" y="132" textAnchor="middle" fontSize="15" fill="#78350f">
                             Poleiros 5×5cm (distância 25cm)
                           </text>
                         </g>
@@ -591,7 +587,7 @@ export default function AviarioPlantaSVG() {
                         stroke="#059669"
                         strokeWidth="2.5"
                       />
-                      <text x="225" y="388" textAnchor="middle" fontSize="10" fill="#059669" fontWeight="bold">
+                      <text x="225" y="388" textAnchor="middle" fontSize="15" fill="#059669" fontWeight="bold">
                         Porta Tela
                       </text>
 
@@ -606,7 +602,7 @@ export default function AviarioPlantaSVG() {
                         markerStart="url(#arrow2)"
                         markerEnd="url(#arrow2)"
                       />
-                      <text x="230" y="455" textAnchor="middle" fontSize="13" fontWeight="bold" fill="#111827">
+                      <text x="230" y="455" textAnchor="middle" fontSize="20" fontWeight="bold" fill="#111827">
                         3,0 m
                       </text>
 
@@ -620,12 +616,12 @@ export default function AviarioPlantaSVG() {
                         markerStart="url(#arrow2)"
                         markerEnd="url(#arrow2)"
                       />
-                      <text x="435" y="245" fontSize="13" fontWeight="bold" fill="#111827">
+                      <text x="435" y="245" fontSize="20" fontWeight="bold" fill="#111827">
                         3,0 m
                       </text>
 
                       {/* LADO DIREITO: VISTA LATERAL / CORTE CONSTRUTIVO */}
-                      <text x="690" y="40" textAnchor="middle" fontWeight="bold" fontSize="15" fill="#111827">
+                      <text x="690" y="40" textAnchor="middle" fontWeight="bold" fontSize="22" fill="#111827">
                         2. Elevação Frontal / Corte (Alturas)
                       </text>
 
@@ -686,7 +682,7 @@ export default function AviarioPlantaSVG() {
                         stroke="#1f2937"
                         strokeWidth="2.5"
                       />
-                      <text x="690" y="355" textAnchor="middle" fontSize="11" fontWeight="bold" fill="#ffffff">
+                      <text x="690" y="355" textAnchor="middle" fontSize="16" fontWeight="bold" fill="#ffffff">
                         Mureta Alvenaria (h = 0,40 m)
                       </text>
 
@@ -701,7 +697,7 @@ export default function AviarioPlantaSVG() {
                         markerStart="url(#arrow2)"
                         markerEnd="url(#arrow2)"
                       />
-                      <text x="492" y="240" textAnchor="end" fontSize="12" fontWeight="bold" fill="#111827">
+                      <text x="492" y="240" textAnchor="end" fontSize="18" fontWeight="bold" fill="#111827">
                         2,50 m
                       </text>
 
@@ -715,7 +711,7 @@ export default function AviarioPlantaSVG() {
                         markerStart="url(#arrow2)"
                         markerEnd="url(#arrow2)"
                       />
-                      <text x="528" y="275" textAnchor="end" fontSize="12" fontWeight="bold" fill="#111827">
+                      <text x="528" y="340" textAnchor="end" fontSize="18" fontWeight="bold" fill="#111827">
                         2,10 m
                       </text>
 
@@ -730,7 +726,7 @@ export default function AviarioPlantaSVG() {
                         markerStart="url(#arrow2)"
                         markerEnd="url(#arrow2)"
                       />
-                      <text x="690" y="455" textAnchor="middle" fontSize="13" fontWeight="bold" fill="#111827">
+                      <text x="690" y="455" textAnchor="middle" fontSize="20" fontWeight="bold" fill="#111827">
                         3,0 m
                       </text>
                     </svg>
@@ -738,10 +734,12 @@ export default function AviarioPlantaSVG() {
                 </div>
               </div>
             </div>
+          </div>
 
-            {/* Coluna de Inspeção Técnica e Quantitativos */}
-            <div className="col-lg-4">
-              <div className="card shadow-sm mb-3">
+          {/* Grid de Cards de Informação - 2 colunas desktop, 1 mobile */}
+          <div className="row g-3">
+            <div className="col-lg-6">
+              <div className="card shadow-sm h-100">
                 <div className="card-header bg-dark text-white fw-bold">
                   🔍 Especificação do Ambiente Selecionado
                 </div>
@@ -785,9 +783,10 @@ export default function AviarioPlantaSVG() {
                   )}
                 </div>
               </div>
+            </div>
 
-              {/* Resumo Rápido de Materiais e Equipamentos */}
-              <div className="card shadow-sm">
+            <div className="col-lg-6">
+              <div className="card shadow-sm h-100">
                 <div className="card-header bg-light fw-bold">
                   🧱 Prévia de Quantitativos
                   {template === 'PLANTA_7X4_5FASES' ? ' (Planta 7×4m)' : ' (Módulo 3×3m)'}

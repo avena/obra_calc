@@ -71,11 +71,22 @@ services:
     volumes:
       - obra_calc_db_data:/var/lib/mysql
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
-      interval: 5s
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-p${MYSQL_ROOT_PASSWORD}"]
+      interval: 10s
       timeout: 5s
-      retries: 10
+      retries: 5
       start_period: 10s
+
+  adminer:
+    image: adminer:latest
+    container_name: obra-calc-adminer
+    restart: unless-stopped
+    ports:
+      - "8085:8080"
+    depends_on:
+      - db
+    environment:
+      ADMINER_DEFAULT_SERVER: db
 
 volumes:
   obra_calc_db_data:

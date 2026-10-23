@@ -3,22 +3,14 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class ProjetoAviario extends Model
 {
-    /**
-     * The table associated with the model.
-     *
-     * @var string
-     */
     protected $table = 'projetos_aviario';
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var string[]
-     */
     protected $fillable = [
+        'uuid',
         'nome_obra',
         'normativa_id',
         'template_planta',
@@ -37,11 +29,6 @@ class ProjetoAviario extends Model
         'orcamento_calculado_json',
     ];
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array
-     */
     protected $casts = [
         'qtd_aves' => 'integer',
         'comprimento_m' => 'decimal:2',
@@ -53,11 +40,23 @@ class ProjetoAviario extends Model
         'orcamento_calculado_json' => 'array',
     ];
 
-    /**
-     * Get the normativa técnica associada a este projeto.
-     */
     public function normativa()
     {
         return $this->belongsTo(NormativaTecnica::class, 'normativa_id');
+    }
+
+    public function calculos()
+    {
+        return $this->hasMany(Calculo::class, 'obra_id');
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+        static::creating(function ($model) {
+            if (empty($model->uuid)) {
+                $model->uuid = Str::uuid()->toString();
+            }
+        });
     }
 }

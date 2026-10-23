@@ -15,7 +15,7 @@ export default function Concreto() {
   }
 
   return (
-    <section className="tab-pane fade" id="concreto" role="tabpanel">
+    <section className="tab-pane fade show active" id="concreto" role="tabpanel">
       <div className="card shadow-sm">
         <div className="card-body">
           <h5 className="card-title mb-3">

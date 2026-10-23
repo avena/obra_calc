@@ -21,7 +21,7 @@ export default function Aco() {
   }
 
   return (
-    <section className="tab-pane fade" id="aco" role="tabpanel">
+    <section className="tab-pane fade show active" id="aco" role="tabpanel">
       <div className="card shadow-sm">
         <div className="card-body">
           <h5 className="card-title mb-3">

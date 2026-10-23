@@ -85,4 +85,41 @@ class ObrasController extends Controller
         $obra->delete();
         return response()->json(null, 204);
     }
+
+    public function addCalculo(Request $request, $id)
+    {
+        $obra = ProjetoAviario::find($id);
+        if (!$obra) {
+            return response()->json(['error' => 'Obra não encontrada'], 404);
+        }
+
+        $validator = Validator::make($request->all(), [
+            'tipo' => 'required|string',
+            'parametros' => 'required',
+            'resultado' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+
+        $calculo = \App\Models\Calculo::create([
+            'obra_id' => $obra->id,
+            'tipo' => $request->input('tipo'),
+            'parametros' => is_array($request->input('parametros')) ? $request->input('parametros') : json_decode($request->input('parametros'), true),
+            'resultado' => is_array($request->input('resultado')) ? $request->input('resultado') : json_decode($request->input('resultado'), true),
+        ]);
+
+        return response()->json($calculo, 201);
+    }
+
+    public function getCalculos($id)
+    {
+        $obra = ProjetoAviario::find($id);
+        if (!$obra) {
+            return response()->json(['error' => 'Obra não encontrada'], 404);
+        }
+
+        return response()->json($obra->calculos);
+    }
 }

@@ -28,3 +28,16 @@ $router->put('/api/obras/{id}', 'ObrasController@update');
 $router->delete('/api/obras/{id}', 'ObrasController@destroy');
 
 $router->post('/api/calculos/{tipo}', 'CalculosController@calcular');
+
+$router->get('/api/calculos', function () {
+    return response()->json([
+        'tipos' => ['alvenaria', 'piso', 'argamassa', 'concreto', 'aco', 'galinheiro', 'aviario-embrapa'],
+        'metodo' => 'POST',
+        'exemplo' => '/api/calculos/alvenaria'
+    ]);
+});
+
+$router->post('/api/obras/{id}/calculos', 'ObrasController@addCalculo');
+$router->get('/api/obras/{id}/calculos', 'ObrasController@getCalculos');
+
+$router->get('/api/normativas', 'NormativasController@index');
