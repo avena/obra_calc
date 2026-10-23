@@ -113,6 +113,63 @@ commit-context:
 clean-ai:
     rm -f .ai/.ai-context/*.md .ai/.ai-context/*.txt
 
+# --- Backend Lumen (Docker + MariaDB) ---
+
+# Sobe o ambiente Docker do backend (PHP-FPM + Apache/Nginx + MariaDB)
+lumen-up:
+    @if [ ! -f .env ]; then \
+        echo "❌ .env não encontrado. Copie .env.example para .env e configure as credenciais."; \
+        exit 1; \
+    fi
+    docker compose -f docker-compose.yml up -d
+    @echo "✅ Backend Lumen subido. Acesse: http://localhost:8084"
+
+# Deruba o ambiente Docker do backend
+lumen-down:
+    docker compose -f docker-compose.yml down
+    @echo "✅ Backend Lumen parado"
+
+alias lumen-stop := lumen-down
+
+# Reinicia o ambiente Docker do backend
+lumen-restart: lumen-down lumen-up
+
+# Executa comando dentro do container PHP (ex: just lumen-php artisan migrate)
+lumen-php *ARGS:
+    docker compose -f docker-compose.yml exec app php {{ARGS}}
+
+# Executa migrations do Lumen
+lumen-migrate:
+    docker compose -f docker-compose.yml exec app php artisan migrate
+
+# Executa seeders do Lumen
+lumen-seed:
+    docker compose -f docker-compose.yml exec app php artisan db:seed
+
+# Executa testes PHPUnit do Lumen
+lumen-test:
+    docker compose -f docker-compose.yml exec app php artisan test
+
+# Acessa shell do container PHP
+lumen-shell:
+    docker compose -f docker-compose.yml exec app sh
+
+# Acessa CLI do MariaDB
+lumen-db:
+    docker compose -f docker-compose.yml exec db mysql -u root -p$$MYSQL_ROOT_PASSWORD
+
+# Verifica status dos containers
+lumen-ps:
+    docker compose -f docker-compose.yml ps
+
+# Ver logs do container PHP
+lumen-logs-app:
+    docker compose -f docker-compose.yml logs -f app
+
+# Ver logs do container MariaDB
+lumen-logs-db:
+    docker compose -f docker-compose.yml logs -f db
+
 # --- Limpeza geral ---
 
 # Limpa artefatos de build
