@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 export default function Aco() {
   const [diam, setDiam] = useState('10');

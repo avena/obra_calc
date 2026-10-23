@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 export default function Concreto() {
   const [comp, setComp] = useState('5');
