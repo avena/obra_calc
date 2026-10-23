@@ -6,11 +6,6 @@ interface BlocoTipo {
   valor: number;
 }
 
-interface TabInfo {
-  label: string;
-  component: React.ReactNode;
-}
-
 const RENDIMENTO_BLOCOS: Record<string, BlocoTipo> = {
   '25': { nome: '9x19x19', valor: 25 },
   '16.7': { nome: '9x19x29', valor: 16.7 },
@@ -24,10 +19,6 @@ const TABS: Record<string, string> = {
   concreto: 'Concreto',
   aco: 'Aço',
 };
-
-function formatReal(n: number): string {
-  return n.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-}
 
 function Alvenaria() {
   const [comp, setComp] = useState('5');
