@@ -6,6 +6,7 @@ import Piso from './components/Piso';
 import Argamassa from './components/Argamassa';
 import Concreto from './components/Concreto';
 import Aco from './components/Aco';
+import Galinheiro from './components/Galinheiro';
 
 const TABS: Record<string, string> = {
   alvenaria: 'Alvenaria',
@@ -13,6 +14,7 @@ const TABS: Record<string, string> = {
   argamassa: 'Argamassa',
   concreto: 'Concreto',
   aco: 'Aço',
+  galinheiro: 'Galinheiro',
 };
 
 export default function App() {
@@ -24,6 +26,7 @@ export default function App() {
     argamassa: <Argamassa />,
     concreto: <Concreto />,
     aco: <Aco />,
+    galinheiro: <Galinheiro />,
   };
 
   return (
@@ -34,13 +37,13 @@ export default function App() {
           Calculadora de Obra
         </h1>
         <p className="text-muted">
-          Blocos • Pisos • Argamassa • Concreto • Aço
+          Blocos • Pisos • Argamassa • Concreto • Aço • Galinheiro
         </p>
       </header>
 
       <nav className="mb-4">
         <div className="nav nav-tabs" id="calcTabs" role="tablist">
-          {(['alvenaria', 'piso', 'argamassa', 'concreto', 'aco'] as const).map(
+          {(['alvenaria', 'piso', 'argamassa', 'concreto', 'aco', 'galinheiro'] as const).map(
             (tab) => (
               <button
                 key={tab}
