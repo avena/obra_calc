@@ -31,6 +31,12 @@ Calcular área, zonas funcionais, número de galinhas e insumos (madeira, tijolo
 
 - Literatura de avicultura: densidade de 3 a 5 galinhas por m² em sistemas de cria.
 - Fórmulas baseadas no `primeiro-prompt.txt` (regras de cálculo de obra).
+- Arquitetura de backend (Lumen + MariaDB + Docker + DreamHost): veja `chat.md` (Turn 1–6) em `docs/arquitetura/ARQUITETURA-BACKEND.md` e as regras de cálculo do Embrapa Meio-Norte (Turn 5–6) com parâmetros normativos para aviários orgânicos/caipiras.
+
+## Imagens de Referência
+
+- `docs/galinheiro/assets/icon-app.png` — Ícone do aplicativo (chat Turn 2).
+- `docs/galinheiro/assets/galinheiro-referencia.png` — Foto real de galinheiro de madeira com tela galvanizada e chapa ondulada azul, visão frontal e lateral (chat Turn 3).
 
 ## Integração
 
