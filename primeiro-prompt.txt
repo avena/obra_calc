@@ -1,0 +1,402 @@
+Com base nas imagens que você enviou, preparei duas coisas para você:
+
+1. **Um resumo em texto** com as fórmulas e "macetes" principais de cada etapa da obra.
+2. **Uma Calculadora de Obra interativa** (logo abaixo do texto) onde você pode inserir as medidas e ela calcula automaticamente a quantidade de blocos, pisos, argamassa, concreto e aço.
+
+---
+
+### 📝 Resumo das Fórmulas e Macetes (Texto)
+
+**1. Alvenaria (Blocos)**
+*   **Regra de Ouro:** Sempre desconte portas e janelas da área total.
+*   **Rendimento dos Blocos:**
+    *   Bloco 9x19x19 = **25 un/m²**
+    *   Bloco 9x19x29 = **16,7 un/m²**
+    *   Bloco 9x19x39 = **12,5 un/m²**
+*   **Perda:** Adicione sempre **5%** a mais na compra.
+*   **Macete do Milheiro:** Um pallet de bloco 19cm rende ~40m²; 29cm rende ~60m²; 39cm rende ~80m².
+
+**2. Reboco e Argamassa**
+*   **Fórmula:** `Volume = Área × Espessura`
+*   **Rendimento por m³ de argamassa:**
+    *   Espessura 1 cm = 100 m²
+    *   Espessura 1,5 cm = 66,7 m²
+    *   Espessura 2 cm = 50 m²
+    *   Espessura 2,5 cm = 40 m²
+*   **Macete:** 1 m³ de argamassa equivale a aproximadamente 56 latas de 18L.
+
+**3. Piso e Porcelanato**
+*   **Fórmula:** `Quantidade = Área do ambiente ÷ Área da peça`
+*   **Perdas (sempre arredonde para cima):**
+    *   Paginação simples (reta): +5% a 10%
+    *   Paginação diagonal ou muitos recortes: +10% a 15%
+
+**4. Rodapé e Contrapiso**
+*   **Rodapé:** Calcule o perímetro do ambiente (soma de todos os lados) e subtraia a largura das portas.
+*   **Contrapiso:** `Volume = Área × Espessura`. Adicione 10% de folga.
+
+**5. Concreto**
+*   **Fórmula geral:** `Volume = Base × Altura × Comprimento`
+*   **1 m³ de concreto rende:**
+    *   Laje de 5 cm = 20 m²
+    *   Laje de 8 cm = 12,5 m²
+    *   Laje de 10 cm = 10 m²
+    *   Laje de 12 cm = 8,3 m²
+*   **Peso próprio do concreto:** 25 kN/m³ (≈ 2,55 tf/m³).
+
+**6. Aço**
+*   **Peso Linear:** `Peso (kg/m) ≈ (Diâmetro²) ÷ 162`. Ex: Barra de 10mm = 100/162 = 0,617 kg/m.
+*   **Quantidade de barras:** `N = (Comprimento ÷ Espaçamento) + 1`
+
+---
+
+### 🧮 Calculadora de Obra Interativa
+
+Abaixo, criei uma ferramenta para você fazer esses cálculos na prática. Basta clicar nas abas e digitar os valores.
+
+<BDS:VISUALIZER>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f9fafb;
+            color: #0d0d0d;
+            margin: 0;
+            padding: 16px;
+        }
+        .tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+        .tab-btn {
+            background-color: #ffffff;
+            border: 1px solid #e5e5e5;
+            color: #0d0d0d;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+        .tab-btn.active {
+            background-color: #4d6bfe;
+            color: white;
+            border-color: #4d6bfe;
+        }
+        .v-card {
+            background: #ffffff;
+            border-radius: 12px;
+            border: 1px solid #e5e5e5;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            margin-bottom: 16px;
+        }
+        .v-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-top: 0;
+            margin-bottom: 16px;
+            border-bottom: 1px solid #e5e5e5;
+            padding-bottom: 8px;
+        }
+        .v-row {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-bottom: 16px;
+        }
+        .v-control-group {
+            flex: 1;
+            min-width: 150px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .v-label {
+            font-size: 13px;
+            font-weight: 500;
+            color: #666;
+        }
+        input[type="number"], select {
+            padding: 10px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        input[type="number"]:focus, select:focus {
+            border-color: #4d6bfe;
+        }
+        .v-stat {
+            background: #f0f3ff;
+            color: #4d6bfe;
+            padding: 12px;
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 16px;
+            font-weight: bold;
+            margin-top: 8px;
+            display: inline-block;
+        }
+        .result-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: #0d0d0d;
+            margin-top: 12px;
+            margin-bottom: 4px;
+        }
+        .hidden {
+            display: none;
+        }
+        .note {
+            font-size: 12px;
+            color: #888;
+            margin-top: 8px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="tabs">
+        <button class="tab-btn active" onclick="openTab('alvenaria')">Alvenaria</button>
+        <button class="tab-btn" onclick="openTab('piso')">Piso</button>
+        <button class="tab-btn" onclick="openTab('argamassa')">Argamassa</button>
+        <button class="tab-btn" onclick="openTab('concreto')">Concreto</button>
+        <button class="tab-btn" onclick="openTab('aco')">Aço</button>
+    </div>
+
+    <!-- ALVENARIA -->
+    <div id="alvenaria" class="v-card tab-content">
+        <h2 class="v-title">Quantidade de Blocos</h2>
+        <div class="v-row">
+            <div class="v-control-group">
+                <label class="v-label">Comprimento da Parede (m)</label>
+                <input type="number" id="alv_comp" value="5" step="0.1" oninput="calcAlvenaria()">
+            </div>
+            <div class="v-control-group">
+                <label class="v-label">Altura da Parede (m)</label>
+                <input type="number" id="alv_alt" value="3" step="0.1" oninput="calcAlvenaria()">
+            </div>
+        </div>
+        <div class="v-row">
+            <div class="v-control-group">
+                <label class="v-label">Área de Portas (m²)</label>
+                <input type="number" id="alv_porta" value="1.68" step="0.1" oninput="calcAlvenaria()">
+            </div>
+            <div class="v-control-group">
+                <label class="v-label">Área de Janelas (m²)</label>
+                <input type="number" id="alv_janela" value="0" step="0.1" oninput="calcAlvenaria()">
+            </div>
+            <div class="v-control-group">
+                <label class="v-label">Tipo de Bloco</label>
+                <select id="alv_tipo" onchange="calcAlvenaria()">
+                    <option value="25">9x19x19 (25 un/m²)</option>
+                    <option value="16.7">9x19x29 (16,7 un/m²)</option>
+                    <option value="12.5">9x19x39 (12,5 un/m²)</option>
+                </select>
+            </div>
+        </div>
+        <div class="result-label">Resultado:</div>
+        <div class="v-stat" id="alv_res">Calculando...</div>
+        <div class="note">*Já incluso 5% de folga para perdas.</div>
+    </div>
+
+    <!-- PISO -->
+    <div id="piso" class="v-card tab-content hidden">
+        <h2 class="v-title">Quantidade de Pisos</h2>
+        <div class="v-row">
+            <div class="v-control-group">
+                <label class="v-label">Área do Ambiente (m²)</label>
+                <input type="number" id="pis_area" value="20" step="0.1" oninput="calcPiso()">
+            </div>
+            <div class="v-control-group">
+                <label class="v-label">Largura da Peça (cm)</label>
+                <input type="number" id="pis_larg" value="80" step="1" oninput="calcPiso()">
+            </div>
+            <div class="v-control-group">
+                <label class="v-label">Comprimento da Peça (cm)</label>
+                <input type="number" id="pis_comp" value="80" step="1" oninput="calcPiso()">
+            </div>
+            <div class="v-control-group">
+                <label class="v-label">Perda (%)</label>
+                <select id="pis_perda" onchange="calcPiso()">
+                    <option value="5">Reta (+5%)</option>
+                    <option value="10" selected>Reta (+10%)</option>
+                    <option value="15">Diagonal/Recortes (+15%)</option>
+                </select>
+            </div>
+        </div>
+        <div class="result-label">Resultado:</div>
+        <div class="v-stat" id="pis_res">Calculando...</div>
+    </div>
+
+    <!-- ARGAMASSA -->
+    <div id="argamassa" class="v-card tab-content hidden">
+        <h2 class="v-title">Reboco e Argamassa</h2>
+        <div class="v-row">
+            <div class="v-control-group">
+                <label class="v-label">Área da Parede (m²)</label>
+                <input type="number" id="arg_area" value="100" step="0.1" oninput="calcArgamassa()">
+            </div>
+            <div class="v-control-group">
+                <label class="v-label">Espessura (cm)</label>
+                <input type="number" id="arg_esp" value="2" step="0.1" oninput="calcArgamassa()">
+            </div>
+        </div>
+        <div class="result-label">Resultado:</div>
+        <div class="v-stat" id="arg_res">Calculando...</div>
+    </div>
+
+    <!-- CONCRETO -->
+    <div id="concreto" class="v-card tab-content hidden">
+        <h2 class="v-title">Volume de Concreto</h2>
+        <div class="v-row">
+            <div class="v-control-group">
+                <label class="v-label">Comprimento (m)</label>
+                <input type="number" id="conc_comp" value="5" step="0.1" oninput="calcConcreto()">
+            </div>
+            <div class="v-control-group">
+                <label class="v-label">Largura (m)</label>
+                <input type="number" id="conc_larg" value="0.8" step="0.1" oninput="calcConcreto()">
+            </div>
+            <div class="v-control-group">
+                <label class="v-label">Altura/Espessura (m)</label>
+                <input type="number" id="conc_alt" value="0.3" step="0.1" oninput="calcConcreto()">
+            </div>
+        </div>
+        <div class="result-label">Resultado:</div>
+        <div class="v-stat" id="conc_res">Calculando...</div>
+    </div>
+
+    <!-- AÇO -->
+    <div id="aco" class="v-card tab-content hidden">
+        <h2 class="v-title">Aço (Peso e Quantidade)</h2>
+        <div class="v-row">
+            <div class="v-control-group">
+                <label class="v-label">Diâmetro da Barra (mm)</label>
+                <input type="number" id="aco_diam" value="10" step="1" oninput="calcAco()">
+            </div>
+            <div class="v-control-group">
+                <label class="v-label">Comprimento Total (m)</label>
+                <input type="number" id="aco_comp" value="12" step="0.1" oninput="calcAco()">
+            </div>
+        </div>
+        <div class="result-label">Peso Estimado:</div>
+        <div class="v-stat" id="aco_peso">Calculando...</div>
+        
+        <div style="margin-top: 16px; border-top: 1px solid #e5e5e5; padding-top: 16px;">
+            <label class="v-label">Macete: Quantas barras para uma laje de 1m?</label>
+            <div class="v-row" style="margin-top: 8px;">
+                <div class="v-control-group">
+                    <label class="v-label">Espaçamento (cm)</label>
+                    <input type="number" id="aco_esp" value="20" step="1" oninput="calcAco()">
+                </div>
+                <div class="v-control-group">
+                    <label class="v-label">Comprimento da Laje (m)</label>
+                    <input type="number" id="aco_laje" value="1" step="0.1" oninput="calcAco()">
+                </div>
+            </div>
+            <div class="result-label">Barras Necessárias:</div>
+            <div class="v-stat" id="aco_barras">Calculando...</div>
+        </div>
+    </div>
+
+    <script>
+        function openTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.add('hidden'));
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            
+            document.getElementById(tabId).classList.remove('hidden');
+            event.currentTarget.classList.add('active');
+            
+            // Trigger calculations
+            if(tabId === 'alvenaria') calcAlvenaria();
+            if(tabId === 'piso') calcPiso();
+            if(tabId === 'argamassa') calcArgamassa();
+            if(tabId === 'concreto') calcConcreto();
+            if(tabId === 'aco') calcAco();
+        }
+
+        function calcAlvenaria() {
+            const comp = parseFloat(document.getElementById('alv_comp').value) || 0;
+            const alt = parseFloat(document.getElementById('alv_alt').value) || 0;
+            const porta = parseFloat(document.getElementById('alv_porta').value) || 0;
+            const janela = parseFloat(document.getElementById('alv_janela').value) || 0;
+            const rendimento = parseFloat(document.getElementById('alv_tipo').value) || 25;
+
+            const areaTotal = comp * alt;
+            const areaLiquida = Math.max(0, areaTotal - porta - janela);
+            const blocos = Math.ceil(areaLiquida * rendimento);
+            const blocosComPerda = Math.ceil(blocos * 1.05);
+
+            document.getElementById('alv_res').innerText = `${blocosComPerda} blocos`;
+        }
+
+        function calcPiso() {
+            const area = parseFloat(document.getElementById('pis_area').value) || 0;
+            const larg = parseFloat(document.getElementById('pis_larg').value) || 1;
+            const comp = parseFloat(document.getElementById('pis_comp').value) || 1;
+            const perda = parseFloat(document.getElementById('pis_perda').value) || 0;
+
+            const areaPeca = (larg * comp) / 10000;
+            if(areaPeca === 0) return;
+            
+            let qtd = area / areaPeca;
+            let qtdArred = Math.ceil(qtd);
+            let qtdFinal = Math.ceil(qtdArred * (1 + (perda/100)));
+
+            document.getElementById('pis_res').innerText = `${qtdFinal} peças (${qtd.toFixed(2)} exatas)`;
+        }
+
+        function calcArgamassa() {
+            const area = parseFloat(document.getElementById('arg_area').value) || 0;
+            const esp = parseFloat(document.getElementById('arg_esp').value) || 0;
+
+            const volume = area * (esp / 100);
+            const latas = volume * 56;
+
+            document.getElementById('arg_res').innerText = `${volume.toFixed(2)} m³ (≈ ${Math.ceil(latas)} latas de 18L)`;
+        }
+
+        function calcConcreto() {
+            const comp = parseFloat(document.getElementById('conc_comp').value) || 0;
+            const larg = parseFloat(document.getElementById('conc_larg').value) || 0;
+            const alt = parseFloat(document.getElementById('conc_alt').value) || 0;
+
+            const volume = comp * larg * alt;
+            document.getElementById('conc_res').innerText = `${volume.toFixed(3)} m³`;
+        }
+
+        function calcAco() {
+            const diam = parseFloat(document.getElementById('aco_diam').value) || 0;
+            const comp = parseFloat(document.getElementById('aco_comp').value) || 0;
+            const esp = parseFloat(document.getElementById('aco_esp').value) || 20;
+            const laje = parseFloat(document.getElementById('aco_laje').value) || 1;
+
+            const pesoM = (diam * diam) / 162;
+            const pesoTotal = pesoM * comp;
+            document.getElementById('aco_peso').innerText = `${pesoTotal.toFixed(2)} kg (${pesoM.toFixed(3)} kg/m)`;
+
+            const barras = Math.ceil((laje / (esp / 100))) + 1;
+            document.getElementById('aco_barras').innerText = `${barras} barras`;
+        }
+
+        // Initialize
+        calcAlvenaria();
+        calcPiso();
+        calcArgamassa();
+        calcConcreto();
+        calcAco();
+    </script>
+</body>
+</html>
+</BDS:VISUALIZER>
+
+Você pode clicar nas abas (Alvenaria, Piso, Argamassa, etc.) e alterar os números nos campos para ver os resultados atualizarem em tempo real. Se precisar de algum ajuste na calculadora, é só me avisar!
