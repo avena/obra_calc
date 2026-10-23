@@ -20,3 +20,11 @@ $router->get('/', function () use ($router) {
 $router->get('/api/ping', function () {
     return response()->json(['status' => 'ok']);
 });
+
+$router->get('/api/obras', 'ObrasController@index');
+$router->post('/api/obras', 'ObrasController@store');
+$router->get('/api/obras/{id}', 'ObrasController@show');
+$router->put('/api/obras/{id}', 'ObrasController@update');
+$router->delete('/api/obras/{id}', 'ObrasController@destroy');
+
+$router->post('/api/calculos/{tipo}', 'CalculosController@calcular');
