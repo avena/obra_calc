@@ -10,10 +10,14 @@ FROM php:8.5.5-fpm
 RUN apt-get update && apt-get install -y --no-install-recommends \
     libfreetype6-dev libjpeg62-turbo-dev libpng-dev libwebp-dev libavif-dev \
     libzip-dev libicu-dev libxml2-dev \
+    git unzip \
     && docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp --with-avif \
     && docker-php-ext-install -j$(nproc) pdo_mysql bcmath gd intl zip \
     && apt-get purge -y --auto-remove \
     && rm -rf /var/lib/apt/lists/*
+
+# Composer disponível no container PHP-FPM (requisito para instalar/gerenciar o Lumen)
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 # Diretivas PHP ajustadas para desenvolvimento local (espelha o espírito do php-dreamhost.ini)
 COPY docker/php-lumen.ini /usr/local/etc/php/conf.d/zz-php-lumen.ini
