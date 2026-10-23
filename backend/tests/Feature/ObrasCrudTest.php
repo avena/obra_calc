@@ -70,7 +70,7 @@ class ObrasCrudTest extends TestCase
         $response = json_decode($this->response->getContent(), true);
         $this->assertArrayHasKey('id', $response);
         $this->assertEquals('Aviário Teste', $response['nome_obra']);
-        $this->assertDatabaseHas('projetos_aviario', ['nome_obra' => 'Aviário Teste']);
+        $this->assertTrue(DB::table('projetos_aviario')->where('nome_obra', 'Aviário Teste')->exists());
     }
 
     public function test_get_obras_show_specific_obra(): void
@@ -90,7 +90,7 @@ class ObrasCrudTest extends TestCase
         $this->assertEquals(200, $this->response->getStatusCode());
         $response = json_decode($this->response->getContent(), true);
         $this->assertEquals('Obra Atualizada', $response['nome_obra']);
-        $this->assertDatabaseHas('projetos_aviario', ['id' => $obra->id, 'nome_obra' => 'Obra Atualizada']);
+        $this->assertTrue(DB::table('projetos_aviario')->where('id', $obra->id)->where('nome_obra', 'Obra Atualizada')->exists());
     }
 
     public function test_delete_obras_delete_obra(): void
@@ -98,7 +98,7 @@ class ObrasCrudTest extends TestCase
         $obra = ProjetoAviario::create($this->validObraData());
         $this->delete('/api/obras/' . $obra->id);
         $this->assertEquals(204, $this->response->getStatusCode());
-        $this->assertDatabaseMissing('projetos_aviario', ['id' => $obra->id]);
+        $this->assertFalse(DB::table('projetos_aviario')->where('id', $obra->id)->exists());
     }
 
     public function test_post_obras_validation_required_fields(): void
