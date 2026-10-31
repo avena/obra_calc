@@ -23,13 +23,13 @@ describe('App - navegação por tabs', () => {
     }
   });
 
-  it('ativa a aba Alvenaria por padrão e exibe seu conteúdo', () => {
+  it('ativa a aba Obras por padrão e exibe seu conteúdo', () => {
     render(<App />);
-    expect(screen.getByRole('tab', { name: 'Alvenaria' })).toHaveAttribute(
+    expect(screen.getByRole('tab', { name: 'Obras' })).toHaveAttribute(
       'aria-selected',
       'true'
     );
-    expect(screen.getByText('Quantidade de Blocos')).toBeInTheDocument();
+    expect(screen.getByText('Gerenciar Obras')).toBeInTheDocument();
   });
 
   it('altera o conteúdo ao clicar em outra aba', () => {

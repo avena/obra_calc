@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import SalvarCalculoBtn from './SalvarCalculoBtn';
 
 export default function Piso() {
   const [area, setArea] = useState('20');
@@ -31,33 +32,42 @@ export default function Piso() {
           <div className="row g-3 mb-4">
             <div className="col-md-3">
               <label className="form-label small">Área do Ambiente (m²)</label>
-              <input
-                type="number"
-                className="form-control"
-                value={area}
-                step="0.1"
-                onChange={(e) => setArea(e.target.value)}
-              />
+              <div className="input-group">
+                <input
+                  type="number"
+                  className="form-control"
+                  value={area}
+                  step="0.1"
+                  onChange={(e) => setArea(e.target.value)}
+                />
+                <span className="input-group-text">m²</span>
+              </div>
             </div>
             <div className="col-md-3">
               <label className="form-label small">Largura da Peça (cm)</label>
-              <input
-                type="number"
-                className="form-control"
-                value={larg}
-                step="1"
-                onChange={(e) => setLarg(e.target.value)}
-              />
+              <div className="input-group">
+                <input
+                  type="number"
+                  className="form-control"
+                  value={larg}
+                  step="1"
+                  onChange={(e) => setLarg(e.target.value)}
+                />
+                <span className="input-group-text">cm</span>
+              </div>
             </div>
             <div className="col-md-3">
               <label className="form-label small">Comprimento da Peça (cm)</label>
-              <input
-                type="number"
-                className="form-control"
-                value={comp}
-                step="1"
-                onChange={(e) => setComp(e.target.value)}
-              />
+              <div className="input-group">
+                <input
+                  type="number"
+                  className="form-control"
+                  value={comp}
+                  step="1"
+                  onChange={(e) => setComp(e.target.value)}
+                />
+                <span className="input-group-text">cm</span>
+              </div>
             </div>
             <div className="col-md-3">
               <label className="form-label small">Perda (%)</label>
@@ -76,8 +86,15 @@ export default function Piso() {
             <i className="fa-solid fa-calculator me-2"></i>Calcular
           </button>
           {resultado && (
-            <div className="alert alert-success">
-              <strong>Resultado:</strong> {resultado}
+            <div className="readout-tile mb-3">
+              <div className="alert alert-success mb-0">
+                <strong>Resultado:</strong> {resultado}
+              </div>
+              <SalvarCalculoBtn
+                tipo="piso"
+                parametros={{ area, larg, comp, perda }}
+                resultado={{ resultado }}
+              />
             </div>
           )}
         </div>

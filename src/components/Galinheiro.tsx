@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import SalvarCalculoBtn from './SalvarCalculoBtn';
 
 interface GalinheiroInputs {
   comprimento: string;
@@ -85,40 +86,49 @@ export default function Galinheiro() {
               <label htmlFor="galinheiro-comprimento" className="form-label small">
                 Comprimento (m)
               </label>
-              <input
-                id="galinheiro-comprimento"
-                type="number"
-                className="form-control"
-                value={inputs.comprimento}
-                step="0.1"
-                onChange={(e) => setInputs({ ...inputs, comprimento: e.target.value })}
-              />
+              <div className="input-group">
+                <input
+                  id="galinheiro-comprimento"
+                  type="number"
+                  className="form-control"
+                  value={inputs.comprimento}
+                  step="0.1"
+                  onChange={(e) => setInputs({ ...inputs, comprimento: e.target.value })}
+                />
+                <span className="input-group-text">m</span>
+              </div>
             </div>
             <div className="col-md-4">
               <label htmlFor="galinheiro-largura" className="form-label small">
                 Largura (m)
               </label>
-              <input
-                id="galinheiro-largura"
-                type="number"
-                className="form-control"
-                value={inputs.largura}
-                step="0.1"
-                onChange={(e) => setInputs({ ...inputs, largura: e.target.value })}
-              />
+              <div className="input-group">
+                <input
+                  id="galinheiro-largura"
+                  type="number"
+                  className="form-control"
+                  value={inputs.largura}
+                  step="0.1"
+                  onChange={(e) => setInputs({ ...inputs, largura: e.target.value })}
+                />
+                <span className="input-group-text">m</span>
+              </div>
             </div>
             <div className="col-md-4">
               <label htmlFor="galinheiro-galinhas-por-m2" className="form-label small">
                 Galinhas por m²
               </label>
-              <input
-                id="galinheiro-galinhas-por-m2"
-                type="number"
-                className="form-control"
-                value={inputs.galinhasPorMetroQuadrado}
-                step="0.1"
-                onChange={(e) => setInputs({ ...inputs, galinhasPorMetroQuadrado: e.target.value })}
-              />
+              <div className="input-group">
+                <input
+                  id="galinheiro-galinhas-por-m2"
+                  type="number"
+                  className="form-control"
+                  value={inputs.galinhasPorMetroQuadrado}
+                  step="0.1"
+                  onChange={(e) => setInputs({ ...inputs, galinhasPorMetroQuadrado: e.target.value })}
+                />
+                <span className="input-group-text">aves/m²</span>
+              </div>
             </div>
           </div>
           <button className="btn btn-primary mb-3" onClick={calcular}>
@@ -126,7 +136,8 @@ export default function Galinheiro() {
           </button>
           {resultado && (
             <>
-              <div className="alert alert-success mb-3" role="alert">
+              <div className="readout-tile mb-3">
+                <div className="alert alert-success mb-0" role="alert">
                 <strong>Resultado:</strong>
                 <ul className="mb-0 mt-2">
                   <li>Área total: <strong>{resultado.areaTotal.toFixed(2)} m²</strong></li>
@@ -144,6 +155,12 @@ export default function Galinheiro() {
                   <li>Tijolos necessários: <strong>{resultado.tijoloUnidades}</strong> (estimativa)</li>
                 </ul>
               </div>
+              <SalvarCalculoBtn
+                tipo="galinheiro"
+                parametros={inputs}
+                resultado={resultado}
+              />
+            </div>
               <div className="text-muted small">
                 <i className="fa-solid fa-chicken me-1"></i>
                 Referência: literatura indica entre 3 e 5 galinhas por m² em sistemas de cria.

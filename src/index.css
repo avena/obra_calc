@@ -1,7 +1,224 @@
+/* Theme tokens: dark (Precision Field & Site System) default, light (Site Management UI) via data-bs-theme */
+
+:root {
+  --bg-app: #0b1326;
+  --bg-sidebar: #060e20;
+  --bg-card: #131b2e;
+  --bg-card-hover: #1b253f;
+  --bg-card-elevated: #1e293b;
+  --bg-input: #0d172b;
+  --border-subtle: #1e293b;
+  --border-default: #243048;
+  --border-strong: #334155;
+  --border-accent: #f59e0b;
+  --text-primary: #f8fafc;
+  --text-secondary: #cbd5e1;
+  --text-muted: #94a3b8;
+  --brand-primary: #f59e0b;
+  --brand-primary-hover: #d97706;
+  --brand-primary-active: #b45309;
+  --bs-primary: #f59e0b;
+  --bs-primary-rgb: 245, 158, 11;
+  --bs-body-bg: #0b1326;
+  --bs-body-color: #f8fafc;
+  --bs-secondary: #cbd5e1;
+  --bs-secondary-rgb: 188, 199, 222;
+  --bs-dark: #060e20;
+  --bs-light: #1e293b;
+  --bs-border-color: #243048;
+  --bs-border-color-translucent: rgba(83, 68, 52, 0.5);
+  --bs-card-bg: #131b2e;
+  --bs-card-border-color: #243048;
+  --bs-input-bg: #0d172b;
+  --bs-input-color: #dae2fd;
+  --bs-input-border-color: #334155;
+  --bs-table-bg: #131b2e;
+  --bs-table-striped-bg: #1b253f;
+  --bs-table-hover-bg: #1b253f;
+  --bs-modal-bg: #1e293b;
+  --bs-modal-border-color: #243048;
+  --bs-toast-bg: #1e293b;
+  --bs-toast-border-color: #243048;
+  --bs-font-sans-serif: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --bs-font-monospace: "IBM Plex Mono", SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+[data-bs-theme="dark"] {
+  --bs-body-bg: #0b1326;
+  --bs-body-color: #f8fafc;
+  --bs-emphasis-color: #dae2fd;
+  --bs-tertiary-bg: #131b2e;
+  --bs-secondary-bg: #131b2e;
+  --bs-primary: #f59e0b;
+  --bs-primary-rgb: 245, 158, 11;
+  --bs-secondary: #cbd5e1;
+  --bs-border-color: #243048;
+  --bs-card-bg: #131b2e;
+  --bs-card-border-color: #243048;
+  --bs-input-bg: #0d172b;
+  --bs-input-color: #dae2fd;
+  --bs-input-border-color: #334155;
+  --bs-table-bg: #131b2e;
+  --bs-table-striped-bg: #1b253f;
+  --bs-table-hover-bg: #1b253f;
+  --bs-modal-bg: #1e293b;
+  --bs-modal-border-color: #243048;
+  --bs-toast-bg: #1e293b;
+  --bs-toast-border-color: #243048;
+  --bs-font-sans-serif: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --bs-font-monospace: "IBM Plex Mono", SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+[data-bs-theme="light"] {
+  --bs-primary: #d97706;
+  --bs-primary-rgb: 217, 119, 6;
+  --bs-body-bg: #f8faff;
+  --bs-body-color: #1f2937;
+  --bs-secondary: #4b5563;
+  --bs-secondary-rgb: 75, 85, 99;
+  --bs-dark: #1f2937;
+  --bs-light: #f3f4f6;
+  --bs-border-color: #e5e7eb;
+  --bs-border-color-translucent: rgba(229, 231, 235, 0.5);
+  --bs-card-bg: #ffffff;
+  --bs-card-border-color: #e5e7eb;
+  --bs-input-bg: #ffffff;
+  --bs-input-color: #1f2937;
+  --bs-input-border-color: #e5e7eb;
+  --bs-table-bg: #ffffff;
+  --bs-table-striped-bg: #f3f4f6;
+  --bs-table-hover-bg: #e5e7eb;
+  --bs-modal-bg: #ffffff;
+  --bs-modal-border-color: #e5e7eb;
+  --bs-toast-bg: #ffffff;
+  --bs-toast-border-color: #e5e7eb;
+  --bs-emphasis-color: #1f2937;
+  --bs-tertiary-bg: #f3f4f6;
+  --bs-secondary-bg: #f3f4f6;
+  --bs-font-sans-serif: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --bs-font-monospace: "IBM Plex Mono", SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  background-color: #f9fafb;
-  color: #0d0d0d;
+  font-family: var(--bs-font-sans-serif);
+  background-color: var(--bs-body-bg);
+  color: var(--bs-body-color);
   margin: 0;
   padding: 0;
+}
+
+.form-control,
+.form-select {
+  font-family: var(--bs-font-monospace);
+  background-color: var(--bs-input-bg);
+  color: var(--bs-input-color);
+  border-color: var(--bs-input-border-color);
+}
+
+.card {
+  background-color: var(--bs-card-bg);
+  border-color: var(--bs-card-border-color);
+  border-radius: 0.5rem;
+}
+
+.table {
+  --bs-table-color: var(--bs-body-color);
+  --bs-table-bg: var(--bs-table-bg);
+}
+
+.btn,
+.form-control,
+.form-select {
+  border-radius: 0.25rem;
+}
+
+.card,
+.modal-content {
+  border-radius: 0.5rem;
+}
+
+.btn-primary {
+  background-color: var(--bs-primary);
+  border-color: var(--bs-primary);
+  color: #0b1326;
+  font-weight: 600;
+}
+
+[data-bs-theme="light"] .btn-primary {
+  color: #ffffff;
+}
+
+.btn-primary:hover {
+  opacity: 0.9;
+  color: #0b1326;
+}
+
+[data-bs-theme="light"] .btn-primary:hover {
+  color: #ffffff;
+}
+
+[data-bs-theme="dark"] .btn-secondary {
+  background-color: var(--bs-tertiary-bg);
+  border-color: var(--bs-border-color);
+  color: var(--bs-body-color);
+}
+
+.text-primary {
+  color: var(--bs-primary) !important;
+}
+
+.readout-tile {
+  background-color: var(--bs-tertiary-bg);
+  border: 1px solid var(--bs-primary);
+  border-radius: 0.5rem;
+  padding: 0.75rem 1rem;
+  color: var(--bs-primary);
+  font-family: var(--bs-font-monospace);
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+/* light theme: ensure dark text on light surfaces */
+[data-bs-theme="light"] .text-muted {
+  color: #554336 !important;
+}
+
+/* @media print: relatorio orcamentario nativo */
+@media print {
+  body {
+    background: #ffffff !important;
+    color: #111827 !important;
+    font-size: 11pt;
+  }
+  header, nav, footer, .btn, .btn-close, .modal-backdrop, .modal-footer, input[type="search"] {
+    display: none !important;
+  }
+  .modal {
+    position: static !important;
+    display: block !important;
+    overflow: visible !important;
+  }
+  .modal-dialog {
+    max-width: 100% !important;
+    margin: 0 !important;
+  }
+  .modal-content {
+    border: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+    color: #111827 !important;
+  }
+  .modal-body pre {
+    background: #f8fafc !important;
+    color: #0f172a !important;
+    border: 1px solid #cbd5e1 !important;
+  }
+  .table {
+    color: #111827 !important;
+  }
+  .badge {
+    border: 1px solid #94a3b8 !important;
+    color: #0f172a !important;
+    background: transparent !important;
+  }
 }

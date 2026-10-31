@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import SalvarCalculoBtn from './SalvarCalculoBtn';
 
 export default function Aco() {
   const [diam, setDiam] = useState('10');
@@ -31,31 +32,44 @@ export default function Aco() {
           <div className="row g-3 mb-4">
             <div className="col-md-3">
               <label className="form-label small">Diâmetro da Barra (mm)</label>
-              <input
-                type="number"
-                className="form-control"
-                value={diam}
-                step="1"
-                onChange={(e) => setDiam(e.target.value)}
-              />
+              <div className="input-group">
+                <input
+                  type="number"
+                  className="form-control"
+                  value={diam}
+                  step="1"
+                  onChange={(e) => setDiam(e.target.value)}
+                />
+                <span className="input-group-text">mm</span>
+              </div>
             </div>
             <div className="col-md-3">
               <label className="form-label small">Comprimento Total (m)</label>
-              <input
-                type="number"
-                className="form-control"
-                value={comp}
-                step="0.1"
-                onChange={(e) => setComp(e.target.value)}
-              />
+              <div className="input-group">
+                <input
+                  type="number"
+                  className="form-control"
+                  value={comp}
+                  step="0.1"
+                  onChange={(e) => setComp(e.target.value)}
+                />
+                <span className="input-group-text">m</span>
+              </div>
             </div>
           </div>
           <button className="btn btn-primary mb-3" onClick={calcular}>
             <i className="fa-solid fa-calculator me-2"></i>Calcular
           </button>
           {peso && (
-            <div className="alert alert-success">
-              <strong>Peso Estimado:</strong> {peso}
+            <div className="readout-tile mb-3">
+              <div className="alert alert-success mb-0">
+                <strong>Peso Estimado:</strong> {peso}
+              </div>
+              <SalvarCalculoBtn
+                tipo="aco"
+                parametros={{ diam, comp, esp, laje }}
+                resultado={{ peso, barras }}
+              />
             </div>
           )}
           <div className="mt-4 pt-4 border-top">
@@ -66,28 +80,36 @@ export default function Aco() {
             <div className="row g-3 mb-3">
               <div className="col-md-3">
                 <label className="form-label small">Espaçamento (cm)</label>
-                <input
-                  type="number"
-                  className="form-control"
-                  value={esp}
-                  step="1"
-                  onChange={(e) => setEsp(e.target.value)}
-                />
+                <div className="input-group">
+                  <input
+                    type="number"
+                    className="form-control"
+                    value={esp}
+                    step="1"
+                    onChange={(e) => setEsp(e.target.value)}
+                  />
+                  <span className="input-group-text">cm</span>
+                </div>
               </div>
               <div className="col-md-3">
                 <label className="form-label small">Comprimento da Laje (m)</label>
-                <input
-                  type="number"
-                  className="form-control"
-                  value={laje}
-                  step="0.1"
-                  onChange={(e) => setLaje(e.target.value)}
-                />
+                <div className="input-group">
+                  <input
+                    type="number"
+                    className="form-control"
+                    value={laje}
+                    step="0.1"
+                    onChange={(e) => setLaje(e.target.value)}
+                  />
+                  <span className="input-group-text">m</span>
+                </div>
               </div>
             </div>
             {barras && (
-              <div className="alert alert-info">
-                <strong>Barras Necessárias:</strong> {barras}
+              <div className="readout-tile mb-3">
+                <div className="alert alert-info mb-0">
+                  <strong>Barras Necessárias:</strong> {barras}
+                </div>
               </div>
             )}
           </div>

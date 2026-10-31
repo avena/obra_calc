@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 
 export type TemplatePlanta = 'PLANTA_7X4_5FASES' | 'MODULO_3X3_POEDEIRAS';
 
@@ -68,6 +68,23 @@ export default function AviarioPlantaSVG() {
   const [compartimentoAtivo, setCompartimentoAtivo] = useState<string>('terminacao');
   const [numAves, setNumAves] = useState<number>(50);
   const [exibirNinhosPoleiros, setExibirNinhosPoleiros] = useState<boolean>(true);
+  const svgRef = useRef<SVGSVGElement | null>(null);
+
+  function exportarSVG() {
+    const svg = svgRef.current;
+    if (!svg) return;
+    const serializer = new XMLSerializer();
+    const source = serializer.serializeToString(svg);
+    const blob = new Blob([source], { type: 'image/svg+xml;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'aviario-planta.svg';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
 
   const infoSelecionada = COMPARTIMENTOS_7X4[compartimentoAtivo];
 
@@ -91,7 +108,7 @@ export default function AviarioPlantaSVG() {
           <div className="alert alert-warning d-flex align-items-center justify-content-between mb-3 shadow-sm" role="alert">
             <div>
               <strong>☀️ Diretriz Térmica Embrapa:</strong> A linha da cumeeira deve ser obrigatoriamente alinhada no sentido{' '}
-              <span className="badge bg-dark">LESTE-OESTE</span> para minimizar a insolação interna.
+              <span className="badge bg-dark">LESTE – OESTE</span> para minimizar a insolação interna.
             </div>
             <span className="badge bg-warning text-dark border border-dark">
               Pé-direito: 2,10m | Cumeeira: 2,50m
@@ -151,20 +168,26 @@ export default function AviarioPlantaSVG() {
           <div className="d-flex justify-content-center mb-4">
             <div style={{ maxWidth: '100%', width: '100%' }}>
               <div className="card shadow-sm">
-                <div className="card-header bg-white d-flex justify-content-between align-items-center">
-                  <span className="fw-bold text-secondary">
+                <div className="card-header bg-dark d-flex justify-content-between align-items-center">
+                  <span className="fw-bold text-white">
                     {template === 'PLANTA_7X4_5FASES'
                       ? 'Figura 3 — Planta Baixa de Aviário para Aves Caipiras de Corte (5 Divisórias)'
                       : 'Figura 4 — Planta Baixa e Elevação do Módulo para 50 Poedeiras (3,0m × 3,0m)'}
                   </span>
-                  <small className="text-muted">Clique nos ambientes para inspecionar</small>
+                  <div className="d-flex align-items-center gap-2">
+                    <small className="text-muted">Clique nos ambientes para inspecionar</small>
+                    <button type="button" className="btn btn-sm btn-outline-light" onClick={exportarSVG}>
+                      <i className="fa-solid fa-download me-1"></i>Exportar SVG
+                    </button>
+                  </div>
                 </div>
 
-                <div className="card-body d-flex justify-content-center align-items-center bg-light p-3">
+                <div className="card-body d-flex justify-content-center align-items-center bg-dark p-3">
                   {template === 'PLANTA_7X4_5FASES' ? (
                     <svg
+                      ref={svgRef}
                       viewBox="0 0 920 620"
-                      className="w-100 h-auto border rounded bg-white"
+                      className="w-100 h-auto border rounded bg-dark"
                       style={{ maxHeight: 'none' }}
                     >
                       <defs>
@@ -489,8 +512,9 @@ export default function AviarioPlantaSVG() {
                     </svg>
                   ) : (
                     <svg
+                      ref={svgRef}
                       viewBox="0 0 920 520"
-                      className="w-100 h-auto border rounded bg-white"
+                      className="w-100 h-auto border rounded bg-dark"
                       style={{ maxHeight: '500px' }}
                     >
                       <defs>
@@ -787,7 +811,7 @@ export default function AviarioPlantaSVG() {
 
             <div className="col-lg-6">
               <div className="card shadow-sm h-100">
-                <div className="card-header bg-light fw-bold">
+                <div className="card-header bg-dark fw-bold">
                   🧱 Prévia de Quantitativos
                   {template === 'PLANTA_7X4_5FASES' ? ' (Planta 7×4m)' : ' (Módulo 3×3m)'}
                 </div>
@@ -816,15 +840,15 @@ export default function AviarioPlantaSVG() {
                       {template === 'PLANTA_7X4_5FASES' ? '1,54 m³' : '0,50 m³'}
                     </strong>
                   </li>
-                  <li className="list-group-item d-flex justify-content-between bg-light">
+                  <li className="list-group-item d-flex justify-content-between bg-dark">
                     <span>Ninhos (1 p/ cada 4 aves - 30×35cm):</span>
                     <strong className="text-primary">{ninhosRecomendados} unidades</strong>
                   </li>
-                  <li className="list-group-item d-flex justify-content-between bg-light">
+                  <li className="list-group-item d-flex justify-content-between bg-dark">
                     <span>Poleiros 5×5cm (25cm/ave):</span>
                     <strong className="text-primary">{poleiroLinearM} m lineares</strong>
                   </li>
-                  <li className="list-group-item d-flex justify-content-between bg-light">
+                  <li className="list-group-item d-flex justify-content-between bg-dark">
                     <span>Área de Piquete (Normal / Semiárido):</span>
                     <strong>
                       {numAves * 3} m² / {numAves * 10} m²

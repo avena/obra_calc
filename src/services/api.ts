@@ -28,12 +28,33 @@ export async function criarObra(dados: any) {
   return res.json();
 }
 
+export async function atualizarObra(id: number, dados: any) {
+  const res = await fetch(`${API_BASE_URL}/obras/${id}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(dados),
+  });
+  return res.json();
+}
+
+export async function deletarObraApi(id: number) {
+  const res = await fetch(`${API_BASE_URL}/obras/${id}`, {
+    method: 'DELETE',
+  });
+  return res.json();
+}
+
 export async function salvarCalculoNaObra(obraId: number, tipo: string, parametros: any, resultado: any) {
   const res = await fetch(`${API_BASE_URL}/obras/${obraId}/calculos`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ tipo, parametros, resultado }),
   });
+  return res.json();
+}
+
+export async function listarCalculosDaObra(obraId: number) {
+  const res = await fetch(`${API_BASE_URL}/obras/${obraId}/calculos`);
   return res.json();
 }
 

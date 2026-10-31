@@ -58,20 +58,27 @@ class ObrasController extends Controller
         }
 
         $validator = Validator::make($request->all(), [
+            'nome_obra' => 'sometimes|string',
             'normativa_id' => 'sometimes|integer|exists:normativas_tecnicas,id',
+            'template_planta' => 'sometimes|string',
+            'finalidade' => 'sometimes|string',
+            'perfil_clima' => 'sometimes|string',
             'qtd_aves' => 'sometimes|integer',
             'comprimento_m' => 'sometimes|numeric',
             'largura_m' => 'sometimes|numeric',
             'pe_direito_m' => 'sometimes|numeric',
             'altura_cumeeira_m' => 'sometimes|numeric',
             'altura_mureta_m' => 'sometimes|numeric',
+            'tipo_piso' => 'sometimes|string',
+            'tipo_cobertura' => 'sometimes|string',
+            'tipo_fechamento_base' => 'sometimes|string',
         ]);
 
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()], 422);
         }
 
-        $obra->fill($request->all());
+        $obra->fill($validator->validated());
         $obra->save();
         return response()->json($obra);
     }

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import SalvarCalculoBtn from './SalvarCalculoBtn';
 
 interface BlocoTipo {
   nome: string;
@@ -43,43 +44,55 @@ export default function Alvenaria() {
           <div className="row g-3 mb-4">
             <div className="col-md-3">
               <label className="form-label small">Comprimento da Parede (m)</label>
-              <input
-                type="number"
-                className="form-control"
-                value={comp}
-                step="0.1"
-                onChange={(e) => setComp(e.target.value)}
-              />
+              <div className="input-group">
+                <input
+                  type="number"
+                  className="form-control"
+                  value={comp}
+                  step="0.1"
+                  onChange={(e) => setComp(e.target.value)}
+                />
+                <span className="input-group-text">m</span>
+              </div>
             </div>
             <div className="col-md-3">
               <label className="form-label small">Altura da Parede (m)</label>
-              <input
-                type="number"
-                className="form-control"
-                value={alt}
-                step="0.1"
-                onChange={(e) => setAlt(e.target.value)}
-              />
+              <div className="input-group">
+                <input
+                  type="number"
+                  className="form-control"
+                  value={alt}
+                  step="0.1"
+                  onChange={(e) => setAlt(e.target.value)}
+                />
+                <span className="input-group-text">m</span>
+              </div>
             </div>
             <div className="col-md-3">
               <label className="form-label small">Área de Portas (m²)</label>
-              <input
-                type="number"
-                className="form-control"
-                value={porta}
-                step="0.1"
-                onChange={(e) => setPorta(e.target.value)}
-              />
+              <div className="input-group">
+                <input
+                  type="number"
+                  className="form-control"
+                  value={porta}
+                  step="0.1"
+                  onChange={(e) => setPorta(e.target.value)}
+                />
+                <span className="input-group-text">m²</span>
+              </div>
             </div>
             <div className="col-md-3">
               <label className="form-label small">Área de Janelas (m²)</label>
-              <input
-                type="number"
-                className="form-control"
-                value={janela}
-                step="0.1"
-                onChange={(e) => setJanela(e.target.value)}
-              />
+              <div className="input-group">
+                <input
+                  type="number"
+                  className="form-control"
+                  value={janela}
+                  step="0.1"
+                  onChange={(e) => setJanela(e.target.value)}
+                />
+                <span className="input-group-text">m²</span>
+              </div>
             </div>
           </div>
           <div className="row g-3 mb-4">
@@ -102,8 +115,15 @@ export default function Alvenaria() {
             <i className="fa-solid fa-calculator me-2"></i>Calcular
           </button>
           {resultado && (
-            <div className="alert alert-success">
-              <strong>Resultado:</strong> {resultado}
+            <div className="readout-tile mb-3">
+              <div className="alert alert-success mb-0">
+                <strong>Resultado:</strong> {resultado}
+              </div>
+              <SalvarCalculoBtn
+                tipo="alvenaria"
+                parametros={{ comp, alt, porta, janela, tipo }}
+                resultado={{ resultado }}
+              />
             </div>
           )}
           <div className="text-muted small">

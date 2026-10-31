@@ -161,7 +161,7 @@ class CalculosController extends Controller
         $validator = Validator::make($request->all(), [
             'diametro' => 'required|numeric',
             'comprimento_total' => 'required|numeric',
-            'espacamento' => 'required|numeric',
+            'espacamento' => 'required|numeric|gt:0',
             'comprimento_laje' => 'required|numeric',
         ]);
 
