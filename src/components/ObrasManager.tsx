@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { listarObras, criarObra, atualizarObra, deletarObraApi, listarCalculosDaObra } from '../services/api';
 import ToastNotification from './ToastNotification';
+import RelatorioConsolidadoModal from './RelatorioConsolidadoModal';
+import CatalogoEditorModal from './CatalogoEditorModal';
 import { useObra, Obra } from '../context/ObraContext';
 
 export default function ObrasManager() {
@@ -11,6 +13,8 @@ export default function ObrasManager() {
   const [busca, setBusca] = useState('');
   const [editando, setEditando] = useState<Obra | null>(null);
   const [calculosModal, setCalculosModal] = useState<{ obra: Obra; calculos: any[] } | null>(null);
+  const [relatorioObra, setRelatorioObra] = useState<Obra | null>(null);
+  const [catalogoObra, setCatalogoObra] = useState<Obra | null>(null);
   const [loadingCalculos, setLoadingCalculos] = useState(false);
   const [toast, setToast] = useState<{ show: boolean; message: string; type: 'success' | 'danger' }>({
     show: false,
@@ -496,6 +500,19 @@ export default function ObrasManager() {
               <div className="modal-backdrop show" onClick={() => setCalculosModal(null)}></div>
             </div>
           )}
+          {relatorioObra && (
+            <RelatorioConsolidadoModal obra={relatorioObra} onClose={() => setRelatorioObra(null)} />
+          )}
+          {catalogoObra && (
+            <CatalogoEditorModal
+              obra={catalogoObra}
+              onClose={() => setCatalogoObra(null)}
+              onSaved={(o) => {
+                setObras((prev) => prev.map((x) => (x.id === o.id ? o : x)));
+                if (obraAtiva?.id === o.id) setObraAtiva(o);
+              }}
+            />
+          )}
 
           {/* Cards de Métricas */}
           <div className="row g-3 mb-3">
@@ -608,6 +625,22 @@ export default function ObrasManager() {
                             title="Ver cálculos da obra"
                           >
                             <i className="fa-solid fa-calculator"></i>
+                          </button>
+                          <button
+                            type="button"
+                            className="btn btn-sm btn-outline-success me-1"
+                            onClick={() => setRelatorioObra(obra)}
+                            title="Relatório consolidado (PDF)"
+                          >
+                            <i className="fa-solid fa-file-pdf"></i>
+                          </button>
+                          <button
+                            type="button"
+                            className="btn btn-sm btn-outline-warning me-1"
+                            onClick={() => setCatalogoObra(obra)}
+                            title="Catálogo regional de preços"
+                          >
+                            <i className="fa-solid fa-tags"></i>
                           </button>
                           <button
                             type="button"

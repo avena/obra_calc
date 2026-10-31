@@ -1,4 +1,3 @@
-import React from 'react';
 import '@testing-library/jest-dom';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import SalvarCalculoBtn from '../components/SalvarCalculoBtn';
@@ -14,6 +13,8 @@ describe('SalvarCalculoBtn', () => {
           setObraAtiva: () => {},
           carregarObras: async () => {},
           salvarCalculo: async () => true,
+          pendentesSync: 0,
+          sincronizarFila: async () => ({ sincronizados: 0, erros: 0 }),
         }}
       >
         <SalvarCalculoBtn tipo="alvenaria" parametros={{ comp: 5 }} resultado={{ blocos: 120 }} />
@@ -38,6 +39,8 @@ describe('SalvarCalculoBtn', () => {
           setObraAtiva: () => {},
           carregarObras: async () => {},
           salvarCalculo: salvarMock,
+          pendentesSync: 0,
+          sincronizarFila: async () => ({ sincronizados: 0, erros: 0 }),
         }}
       >
         <SalvarCalculoBtn tipo="alvenaria" parametros={{ comp: 5 }} resultado={{ blocos: 120 }} />

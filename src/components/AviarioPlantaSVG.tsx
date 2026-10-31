@@ -1,4 +1,5 @@
 import { useState, useRef } from 'react';
+import SalvarCalculoBtn from './SalvarCalculoBtn';
 
 export type TemplatePlanta = 'PLANTA_7X4_5FASES' | 'MODULO_3X3_POEDEIRAS';
 
@@ -855,6 +856,28 @@ export default function AviarioPlantaSVG() {
                     </strong>
                   </li>
                 </ul>
+                <div className="card-body pt-0">
+                  <SalvarCalculoBtn
+                    tipo="aviario_planta"
+                    parametros={{
+                      template,
+                      aves: numAves,
+                      ninhosRecomendados,
+                      poleiroLinearM,
+                      exibirNinhosPoleiros,
+                    }}
+                    resultado={{
+                      perimetroMuretaLiquidaM: template === 'PLANTA_7X4_5FASES' ? 29.0 : 11.2,
+                      blocos9x19x19Un: template === 'PLANTA_7X4_5FASES' ? 305 : 118,
+                      telaGalvanizadaM: template === 'PLANTA_7X4_5FASES' ? 32.0 : 12.5,
+                      contrapisoM3: template === 'PLANTA_7X4_5FASES' ? 1.54 : 0.5,
+                      ninhosUn: ninhosRecomendados,
+                      poleirosM: parseFloat(poleiroLinearM),
+                      areaPiqueteNormalM2: numAves * 3,
+                      areaPiqueteSemiaridoM2: numAves * 10,
+                    }}
+                  />
+                </div>
               </div>
             </div>
           </div>

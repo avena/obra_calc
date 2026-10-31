@@ -78,7 +78,11 @@ class ObrasController extends Controller
             return response()->json(['errors' => $validator->errors()], 422);
         }
 
-        $obra->fill($validator->validated());
+        $data = $validator->validated();
+        if ($request->has('orcamento_calculado_json')) {
+            $data['orcamento_calculado_json'] = $request->input('orcamento_calculado_json');
+        }
+        $obra->fill($data);
         $obra->save();
         return response()->json($obra);
     }

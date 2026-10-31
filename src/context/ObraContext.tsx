@@ -11,6 +11,7 @@ export interface Obra {
   qtd_aves?: number;
   comprimento_m?: number;
   largura_m?: number;
+  orcamento_calculado_json?: any;
   [key: string]: any;
 }
 

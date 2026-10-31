@@ -1,7 +1,6 @@
 import '@testing-library/jest-dom';
 import { ObraProvider, useObra } from '../context/ObraContext';
 import { render, screen, act } from '@testing-library/react';
-import React from 'react';
 
 function SyncConsumer() {
   const { salvarCalculo, pendentesSync, sincronizarFila, setObraAtiva } = useObra();
